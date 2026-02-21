@@ -65,7 +65,8 @@ services:
     environment:
       POSTGRES_HOST: postgres
       OLLAMA_HOST: http://ollama:11434
-      # REDIS is external in prod env, configuring it via .env.prod (e.g. REDIS_HOST=host.docker.internal)
+      API_CORS_ORIGINS: '["https://api.fahimulhaque.org", "https://tickeragent.fahimulhaque.org"]'
+      # REDIS is external in prod env, configuring it via .env.prod
     ports:
       - "8080:8000"
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000
