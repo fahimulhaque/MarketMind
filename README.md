@@ -10,6 +10,7 @@ MarketMind is an AI-driven market intelligence and competitive analysis system d
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![Node Version](https://img.shields.io/badge/node-18.17%2B-green.svg)](interface/dashboard/package.json)
 [![Docker](https://img.shields.io/badge/docker-compose-blue.svg)](docker-compose.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/fahimulhaque/MarketMind)
 
 ## 🌟 Key Features
 
