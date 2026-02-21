@@ -98,6 +98,9 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.dashboard
+      args:
+        NEXT_PUBLIC_API_BASE: https://api.fahimulhaque.org/tickeragent
+        NEXT_PUBLIC_API_WRITE_KEY: ${API_WRITE_KEY:-tickeragent-dev-key}
     environment:
       # Adjusted API Base to proxy through the context /tickeragent
       NEXT_PUBLIC_API_BASE: https://api.fahimulhaque.org/tickeragent

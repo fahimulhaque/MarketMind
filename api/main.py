@@ -18,7 +18,7 @@ cors_origins = list(settings.cors_origins)
 if "https://api.fahimulhaque.org" not in cors_origins:
     cors_origins.append("https://api.fahimulhaque.org")
 
-app = FastAPI(title="TickerAgent API", version="0.3.0-phase3", root_path="/api")
+app = FastAPI(title="TickerAgent API", version="0.3.0-phase3", root_path="/tickeragent")
 
 app.add_middleware(
     CORSMiddleware,
