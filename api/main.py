@@ -15,8 +15,8 @@ from core.config import get_settings
 settings = get_settings()
 
 cors_origins = list(settings.cors_origins)
-if "https://api.fahimulhaque.org" not in cors_origins:
-    cors_origins.append("https://api.fahimulhaque.org")
+if "https://tickeragent.fahimulhaque.org" not in cors_origins:
+    cors_origins.append("https://tickeragent.fahimulhaque.org")
 
 app = FastAPI(title="TickerAgent API", version="0.3.0-phase3", root_path="/tickeragent")
 
