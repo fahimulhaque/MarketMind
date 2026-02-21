@@ -198,12 +198,14 @@ def _synthesize_report(
 
     # --- LLM-powered trend analysis ---
     ticker = query_context.get("ticker")
+    currency = financial_snapshot.get("currency")
     trend_analysis_text = None
     if historical_trends.get("available") and ticker:
         trend_analysis_text = llm_module.generate_trend_analysis(
             ticker=ticker,
             quarterly_data=historical_trends.get("quarters", []),
             annual_data=historical_trends.get("annual", []),
+            currency_code=currency,
         )
 
     contradictions = _detect_contradictions(evidence)
