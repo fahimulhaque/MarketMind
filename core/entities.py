@@ -10,6 +10,7 @@ import json
 import logging
 from datetime import datetime, timezone
 from typing import Optional
+import re
 
 import httpx
 from psycopg2.extras import RealDictCursor
@@ -125,12 +126,27 @@ def _upsert_entity(
 def _resolve_via_yahoo(query_text: str) -> Optional[dict]:
     """Resolve query to ticker+metadata via Yahoo Finance search API."""
     try:
-        tokens = query_text.strip().split()
-        attempts = [query_text.strip()]
+        query_clean = query_text.strip()
+        attempts = [query_clean]
+        
+        # Prioritize explicit tickers in parentheses, e.g. (TMCV.NS)
+        explicit_match = re.search(r'\(([A-Z0-9.-]+)\)', query_clean, re.IGNORECASE)
+        if explicit_match:
+            attempts.insert(0, explicit_match.group(1).upper())
+            
+        tokens = query_clean.split()
         if len(tokens) > 1:
             attempts.append(tokens[0])
+            
+        # Deduplicate attempts while preserving order
+        seen = set()
+        unique_attempts = []
+        for a in attempts:
+            if a not in seen:
+                seen.add(a)
+                unique_attempts.append(a)
 
-        for attempt in attempts:
+        for attempt in unique_attempts:
             resp = httpx.get(
                 "https://query2.finance.yahoo.com/v1/finance/search",
                 params={"q": attempt, "quotesCount": 3, "newsCount": 0},
