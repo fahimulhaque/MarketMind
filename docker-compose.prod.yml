@@ -99,8 +99,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.dashboard
     environment:
-      # Adjusted API Base to proxy through the context /api
-      NEXT_PUBLIC_API_BASE: https://api.fahimulhaque.org/api
+      # Adjusted API Base to proxy through the context /tickeragent
+      NEXT_PUBLIC_API_BASE: https://api.fahimulhaque.org/tickeragent
       NEXT_PUBLIC_API_WRITE_KEY: ${API_WRITE_KEY:-tickeragent-dev-key}
     ports:
       - "3005:3000"
