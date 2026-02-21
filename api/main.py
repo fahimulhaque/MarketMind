@@ -14,7 +14,7 @@ from core.config import get_settings
 
 settings = get_settings()
 
-app = FastAPI(title="MarketMind API", version="0.3.0-phase3")
+app = FastAPI(title="TickerAgent API", version="0.3.0-phase3")
 
 app.add_middleware(
     CORSMiddleware,

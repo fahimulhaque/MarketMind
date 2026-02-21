@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './styles/globals.css'
 
 export const metadata: Metadata = {
-  title: 'MARKETMIND TERMINAL',
+  title: 'TICKERAGENT TERMINAL',
   description: 'Financial Command Line Interface — Market Intelligence',
 }
 

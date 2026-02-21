@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve MarketMind
+about: Create a report to help us improve TickerAgent
 title: '[BUG] '
 labels: bug
 assignees: ''

@@ -1,23 +1,23 @@
-# Contributing to MarketMind
+# Contributing to TickerAgent
 
-First off, thank you for considering contributing to MarketMind. We value our community and welcome any contributions, whether they be bug reports, feature requests, or code contributions!
+First off, thank you for considering contributing to TickerAgent. We value our community and welcome any contributions, whether they be bug reports, feature requests, or code contributions!
 
 ## How to Contribute
 
 ### 1. Reporting Bugs
-- Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/your-org/MarketMind/issues).
+- Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/your-org/TickerAgent/issues).
 - If you're unable to find an open issue addressing the problem, open a new one. Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
 
 ### 2. Suggesting Enhancements
 - Open a new enhancement issue. Provide a clear and descriptive title.
-- Explain why this enhancement would be useful to most MarketMind users.
+- Explain why this enhancement would be useful to most TickerAgent users.
 
 ### 3. Pull Requests
 The process described here has several goals:
-- Maintain MarketMind's quality
+- Maintain TickerAgent's quality
 - Fix problems that are important to users
-- Engage the community in working toward the best possible MarketMind
-- Enable a sustainable system for MarketMind's maintainers
+- Engage the community in working toward the best possible TickerAgent
+- Enable a sustainable system for TickerAgent's maintainers
 
 #### PR Process
 1. Fork the repo and create your branch from `main`.
@@ -30,7 +30,7 @@ The process described here has several goals:
 
 ## Local Development Environment
 
-MarketMind is composed of multiple services (PostgreSQL, Redis, Ollama, API, FastAPI workers, and a Next.js frontend). The easiest way to get everything running is via Docker Compose.
+TickerAgent is composed of multiple services (PostgreSQL, Redis, Ollama, API, FastAPI workers, and a Next.js frontend). The easiest way to get everything running is via Docker Compose.
 
 ```bash
 docker-compose --profile full up -d

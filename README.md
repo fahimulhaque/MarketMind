@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="assets/marketmind.png" alt="MarketMind Logo" width="800" />
+  <img src="assets/tickeragent.png" alt="TickerAgent Logo" width="800" />
 </p>
 
-# MarketMind
+# TickerAgent
 
-MarketMind is an AI-driven market intelligence and competitive analysis system designed to help users aggregate, analyze, and gain insights from various market sources. By utilizing powerful language models and vector search capabilities, it streamlines the complex process of extracting competitive intel and producing comprehensive reports.
+TickerAgent is an AI-driven market intelligence and competitive analysis system designed to help users aggregate, analyze, and gain insights from various market sources. By utilizing powerful language models and vector search capabilities, it streamlines the complex process of extracting competitive intel and producing comprehensive reports.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![Node Version](https://img.shields.io/badge/node-18.17%2B-green.svg)](interface/dashboard/package.json)
 [![Docker](https://img.shields.io/badge/docker-compose-blue.svg)](docker-compose.yml)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/fahimulhaque/MarketMind)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/fahimulhaque/TickerAgent)
 
 ## 🌟 Key Features
 
@@ -22,7 +22,7 @@ MarketMind is an AI-driven market intelligence and competitive analysis system d
 
 ## 🏗 Architecture Overview
 
-MarketMind's containerized architecture strictly separates the ingestion layer, the brain (LLMs/Vector DB), and the user interface.
+TickerAgent's containerized architecture strictly separates the ingestion layer, the brain (LLMs/Vector DB), and the user interface.
 
 ```mermaid
 graph TD;
@@ -41,7 +41,7 @@ graph TD;
 
 ## 📋 Prerequisites
 
-To run MarketMind locally, you must have the following installed on your host machine:
+To run TickerAgent locally, you must have the following installed on your host machine:
 - [Docker Engine & Docker Compose](https://docs.docker.com/get-docker/) (Docker Desktop recommended for Mac/Windows)
 
 *Note: If you plan to contribute to the codebase without using the Docker environment, you will also need Python 3.10+ and Node.js 18.17+.*
@@ -50,12 +50,12 @@ To run MarketMind locally, you must have the following installed on your host ma
 
 ## 🚀 Getting Started
 
-The easiest way to get MarketMind running is by using our bundled `./marketmind` orchestration script which handles environment setup, dependencies, and Docker orchestration for you.
+The easiest way to get TickerAgent running is by using our bundled `./tickeragent` orchestration script which handles environment setup, dependencies, and Docker orchestration for you.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-org/MarketMind.git
-cd MarketMind
+git clone https://github.com/your-org/TickerAgent.git
+cd TickerAgent
 ```
 
 ### 2. Configure Environment Variables
@@ -67,7 +67,7 @@ cp .env.example .env
 
 ### 3. Start the Infrastructure
 ```bash
-./marketmind start
+./tickeragent start
 ```
 > **Note:** The initial startup will download several Docker images including the default local LLM models (`qwen2.5:1.5b` and `nomic-embed-text` via Ollama). This may take several minutes depending on your internet connection.
 
@@ -80,16 +80,16 @@ Once the services map port statuses:
 
 ## ⚙️ Configuration (.env)
 
-MarketMind is incredibly configurable. While the defaults work out of the box using local Docker services, you can unlock much faster inference and better data by adding your keys.
+TickerAgent is incredibly configurable. While the defaults work out of the box using local Docker services, you can unlock much faster inference and better data by adding your keys.
 
 ### Local vs Cloud LLMs
-By default, MarketMind uses local **Ollama** models. 
+By default, TickerAgent uses local **Ollama** models. 
 To switch to a cloud provider natively (e.g. Groq):
 1. Open `.env`
 2. Set `LLM_PROVIDER=groq`
 3. Set `LLM_API_KEY=gsk_your_groq_api_key_here...`
 
-*(MarketMind supports `openai`, `anthropic`, `gemini`, `together`, and `groq` through its LiteLLM integration router).*
+*(TickerAgent supports `openai`, `anthropic`, `gemini`, `together`, and `groq` through its LiteLLM integration router).*
 
 ### External Data Providers
 To enrich your market reports, you can add API keys for major financial data providers in your `.env` file:
@@ -100,26 +100,26 @@ ALPHA_VANTAGE_API_KEY=your_key_here
 FMP_API_KEY=your_key_here
 
 # Social Data (Reddit requires no keys, but uses this UA)
-SEC_EDGAR_USER_AGENT="MarketMind admin@yourdomain.com"
+SEC_EDGAR_USER_AGENT="TickerAgent admin@yourdomain.com"
 ```
 
 ---
 
 ## 🛠 Useful CLI Commands
 
-Instead of memorizing long `docker compose` strings, you can use the bundled `./marketmind` CLI for granular stack control:
+Instead of memorizing long `docker compose` strings, you can use the bundled `./tickeragent` CLI for granular stack control:
 
 | Command | Action |
 | --- | --- |
-| `./marketmind start` | Boot up the entire architecture in the background. |
-| `./marketmind status` | View the health and running status of all containers. |
-| `./marketmind help` | Learn about all available commands. |
-| `./marketmind logs [service]` | Stream colored logs. (e.g. `./marketmind logs api`) |
-| `./marketmind restart [service]` | Bounce a specific container. (e.g. `./marketmind restart worker`) |
-| `./marketmind refresh [service]` | Force a rebuild of a container after adding new Py/Node packages! |
-| `./marketmind shell <service>` | Drop into an interactive bash prompt inside a running container. |
-| `./marketmind stop` | Gracefully pause services without losing data. |
-| `./marketmind clean` | **Destructive!** Tears down all networks, containers, and destroys Postgres/Ollama local volumes. |
+| `./tickeragent start` | Boot up the entire architecture in the background. |
+| `./tickeragent status` | View the health and running status of all containers. |
+| `./tickeragent help` | Learn about all available commands. |
+| `./tickeragent logs [service]` | Stream colored logs. (e.g. `./tickeragent logs api`) |
+| `./tickeragent restart [service]` | Bounce a specific container. (e.g. `./tickeragent restart worker`) |
+| `./tickeragent refresh [service]` | Force a rebuild of a container after adding new Py/Node packages! |
+| `./tickeragent shell <service>` | Drop into an interactive bash prompt inside a running container. |
+| `./tickeragent stop` | Gracefully pause services without losing data. |
+| `./tickeragent clean` | **Destructive!** Tears down all networks, containers, and destroys Postgres/Ollama local volumes. |
 
 
 ## 🤝 Contributing

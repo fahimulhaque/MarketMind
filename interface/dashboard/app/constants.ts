@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// MarketMind Dashboard — Application Constants
+// TickerAgent Dashboard — Application Constants
 // ---------------------------------------------------------------------------
 
 /** Base URL for the backend API. */

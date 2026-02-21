@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// MarketMind Dashboard — Number / Display Formatting Helpers
+// TickerAgent Dashboard — Number / Display Formatting Helpers
 // ---------------------------------------------------------------------------
 
 /**

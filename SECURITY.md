@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We currently support the following versions of MarketMind for security updates:
+We currently support the following versions of TickerAgent for security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -12,7 +12,7 @@ We currently support the following versions of MarketMind for security updates:
 
 ## Reporting a Vulnerability
 
-Security is a priority for the MarketMind project. If you discover a security vulnerability within MarketMind, we kindly ask that you do **not** open a public issue. By privately disclosing vulnerabilities, you give the maintainers time to coordinate a fix and release it before the vulnerability is made public.
+Security is a priority for the TickerAgent project. If you discover a security vulnerability within TickerAgent, we kindly ask that you do **not** open a public issue. By privately disclosing vulnerabilities, you give the maintainers time to coordinate a fix and release it before the vulnerability is made public.
 
 To report a vulnerability, please use the **GitHub Security Advisories** feature:
 Go to `Security` -> `Advisories` -> `Report a vulnerability` on the repository page.

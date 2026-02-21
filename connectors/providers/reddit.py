@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 _SUBREDDITS = ["wallstreetbets", "stocks", "investing", "stockmarket", "options"]
 
 _HEADERS = {
-    "User-Agent": "MarketMind/1.0 (market intelligence platform; educational use)",
+    "User-Agent": "TickerAgent/1.0 (market intelligence platform; educational use)",
 }
 
 # Simple keyword-based sentiment (upgrade to Ollama later)

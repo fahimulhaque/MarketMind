@@ -1,5 +1,5 @@
 [project]
-name = "marketmind"
+name = "tickeragent"
 version = "0.1.0"
 description = "Market Intelligence and Competitive Analysis System"
 readme = "README.md"

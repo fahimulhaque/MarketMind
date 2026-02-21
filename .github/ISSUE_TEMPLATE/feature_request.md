@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for MarketMind
+about: Suggest an idea for TickerAgent
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''

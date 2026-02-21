@@ -37,7 +37,7 @@ export function StatusFooter({ stream: s, complete, loading, latency }: Props) {
                         SEARCH: <span>#{s.searchId}</span>
                     </span>
                 ) : null}
-                <span className="status-item">MARKETMIND</span>
+                <span className="status-item">TICKERAGENT</span>
             </div>
         </div>
     )

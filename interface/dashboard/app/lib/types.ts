@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// MarketMind Dashboard — Shared TypeScript Types
+// TickerAgent Dashboard — Shared TypeScript Types
 // ---------------------------------------------------------------------------
 
 /** Server-Sent Event payload pushed by the streaming search endpoint. */

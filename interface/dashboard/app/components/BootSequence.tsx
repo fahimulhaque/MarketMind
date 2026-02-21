@@ -6,7 +6,7 @@
 
 export function BootSequence({ stage }: { stage: string }) {
     const lines = [
-        { text: 'MARKETMIND TERMINAL v2.0', cls: 'hl' },
+        { text: 'TICKERAGENT TERMINAL v2.0', cls: 'hl' },
         { text: '> Initializing data providers...', cls: '' },
         { text: `> ${stage}`, cls: '' },
         { text: '> Connecting to market feeds...', cls: 'dim' },

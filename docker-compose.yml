@@ -2,15 +2,15 @@ services:
   postgres:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-marketmind}
-      POSTGRES_USER: ${POSTGRES_USER:-marketmind}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-marketmind}
+      POSTGRES_DB: ${POSTGRES_DB:-tickeragent}
+      POSTGRES_USER: ${POSTGRES_USER:-tickeragent}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tickeragent}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-marketmind} -d ${POSTGRES_DB:-marketmind}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-tickeragent} -d ${POSTGRES_DB:-tickeragent}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -119,7 +119,7 @@ services:
       dockerfile: docker/Dockerfile.dashboard
     environment:
       NEXT_PUBLIC_API_BASE: http://localhost:8000
-      NEXT_PUBLIC_API_WRITE_KEY: ${API_WRITE_KEY:-marketmind-dev-key}
+      NEXT_PUBLIC_API_WRITE_KEY: ${API_WRITE_KEY:-tickeragent-dev-key}
     ports:
       - "3000:3000"
     depends_on:

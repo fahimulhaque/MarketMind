@@ -57,7 +57,7 @@ start_services() {
 }
 
 print_dashboard() {
-    echo -e "\n${GREEN}🚀 MarketMind is running!${NC}"
+    echo -e "\n${GREEN}🚀 TickerAgent is running!${NC}"
     echo "----------------------------------------------------"
     echo -e "📱 ${BLUE}Dashboard UI:${NC}    http://localhost:3000"
     echo -e "🧠 ${BLUE}API Gateway:${NC}     http://localhost:8000/docs"
@@ -65,18 +65,18 @@ print_dashboard() {
     echo -e "💬 ${BLUE}Ollama:${NC}          http://localhost:11434"
     echo "----------------------------------------------------"
     echo "Useful commands:"
-    echo "  ./marketmind logs       - View streaming, colorized logs for all services"
-    echo "  ./marketmind stop       - Stop services (keeps data)"
-    echo "  ./marketmind down       - Stop and remove containers"
-    echo "  ./marketmind clean      - Full atomic teardown (DANGER: clear db volumes)"
+    echo "  ./tickeragent logs       - View streaming, colorized logs for all services"
+    echo "  ./tickeragent stop       - Stop services (keeps data)"
+    echo "  ./tickeragent down       - Stop and remove containers"
+    echo "  ./tickeragent clean      - Full atomic teardown (DANGER: clear db volumes)"
     echo ""
 }
 
 print_help() {
-    echo -e "\n${GREEN}🧠 MarketMind CLI${NC}"
+    echo -e "\n${GREEN}🧠 TickerAgent CLI${NC}"
     echo -e "An orchestration wrapper for local development.\n"
     
-    echo -e "${YELLOW}Usage:${NC} ./marketmind [command] [service]"
+    echo -e "${YELLOW}Usage:${NC} ./tickeragent [command] [service]"
     echo ""
     echo -e "${YELLOW}Lifecycle Commands:${NC}"
     echo -e "  ${GREEN}start${NC}           - Bootstrap environment and start all services in the background."
@@ -85,17 +85,17 @@ print_help() {
     echo -e "  ${GREEN}clean${NC}           - Atomic teardown! Destroys containers, DB volumes, and uninstalls local deps."
     echo ""
     echo -e "${YELLOW}Granular Control:${NC}"
-    echo -e "  ${BLUE}status${NC}          - Show running status and health of the MarketMind stack."
-    echo -e "  ${BLUE}logs${NC} [service]  - Tail streaming logs (e.g., './marketmind logs', './marketmind logs api')."
-    echo -e "  ${BLUE}restart${NC} [svc]   - Restart the whole stack, or just one piece (e.g., './marketmind restart worker')."
+    echo -e "  ${BLUE}status${NC}          - Show running status and health of the TickerAgent stack."
+    echo -e "  ${BLUE}logs${NC} [service]  - Tail streaming logs (e.g., './tickeragent logs', './tickeragent logs api')."
+    echo -e "  ${BLUE}restart${NC} [svc]   - Restart the whole stack, or just one piece (e.g., './tickeragent restart worker')."
     echo -e "  ${BLUE}refresh${NC} [svc]   - Force rebuild and recreate a container (useful after changing package.json/requirements.txt)."
     echo -e "  ${BLUE}shell${NC} <service> - Drop into an interactive bash/sh prompt inside a running container."
     echo ""
     echo -e "${YELLOW}Examples:${NC}"
-    echo "  ./marketmind start"
-    echo "  ./marketmind logs api"
-    echo "  ./marketmind restart worker"
-    echo "  ./marketmind shell postgres"
+    echo "  ./tickeragent start"
+    echo "  ./tickeragent logs api"
+    echo "  ./tickeragent restart worker"
+    echo "  ./tickeragent shell postgres"
     echo ""
 }
 
@@ -107,11 +107,11 @@ case "$1" in
         start_services
         ;;
     stop)
-        log_info "Stopping MarketMind..."
+        log_info "Stopping TickerAgent..."
         docker compose stop $SERVICE
         ;;
     down)
-        log_info "Spinning down MarketMind..."
+        log_info "Spinning down TickerAgent..."
         docker compose down
         ;;
     status|ps)
@@ -138,7 +138,7 @@ case "$1" in
         ;;
     shell|exec)
         if [ -z "$SERVICE" ]; then
-            log_error "You must specify a service to shell into (e.g., './marketmind shell api')."
+            log_error "You must specify a service to shell into (e.g., './tickeragent shell api')."
             exit 1
         fi
         log_info "Dropping into $SERVICE..."

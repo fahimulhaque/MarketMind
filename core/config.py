@@ -8,9 +8,9 @@ class Settings(BaseSettings):
         extra="ignore"
     )
 
-    postgres_db: str = "marketmind"
-    postgres_user: str = "marketmind"
-    postgres_password: str = "marketmind"
+    postgres_db: str = "tickeragent"
+    postgres_user: str = "tickeragent"
+    postgres_password: str = "tickeragent"
     postgres_host: str = "localhost"
     postgres_port: int = 5432
     
@@ -22,7 +22,7 @@ class Settings(BaseSettings):
 
     
     ingest_min_interval_seconds: int = 60
-    ingest_user_agent: str = "MarketMindBot/0.1 (+https://localhost)"
+    ingest_user_agent: str = "TickerAgentBot/0.1 (+https://localhost)"
     ingest_allowed_domains: str = ""
     ingest_policy_require_robots: bool = True
     ingest_policy_deny_on_robots_error: bool = False
@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     ollama_generate_model: str = "qwen2.5:1.5b"
     embedding_vector_size: int = 768
     
-    api_write_key: str = "marketmind-dev-key"
+    api_write_key: str = "tickeragent-dev-key"
     api_cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
     
     retention_insights_days: int = 90
@@ -41,7 +41,7 @@ class Settings(BaseSettings):
     retention_audit_days: int = 365
 
     # --- Data Provider API Keys ---
-    sec_edgar_user_agent: str = "MarketMind admin@localhost"
+    sec_edgar_user_agent: str = "TickerAgent admin@localhost"
     fred_api_key: str = ""
     alpha_vantage_api_key: str = ""
     fmp_api_key: str = ""

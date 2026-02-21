@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 
 def build_markdown_report(source_name: str, source_url: str, insights: list[dict]) -> tuple[str, str]:
-    title = f"MarketMind Report - {source_name} - {datetime.now(timezone.utc).date().isoformat()}"
+    title = f"TickerAgent Report - {source_name} - {datetime.now(timezone.utc).date().isoformat()}"
 
     header = [
         f"# {title}",
