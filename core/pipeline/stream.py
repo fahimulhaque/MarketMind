@@ -173,6 +173,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
             ticker=ticker,
             quarterly_data=historical_trends.get("quarters", []),
             annual_data=historical_trends.get("annual", []),
+            currency_code=financial_snapshot.get("currency"),
         )
     yield _event("historical_trends", 0.50, {
         "trends": historical_trends,
@@ -269,11 +270,13 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
         # Data-rich fallback
         parts = [f"Analysis for '{query_text}': "]
         fin = financial_snapshot or {}
+        from core.llm.formatters import _get_currency_symbol
+        sym = _get_currency_symbol(fin.get("currency"))
         if fin.get("price"):
-            parts.append(f"Current price ${fin['price']}")
+            parts.append(f"Current price {sym}{fin['price']}")
             if fin.get("market_cap"):
                 mc = fin["market_cap"]
-                mc_str = f"${mc/1e12:.1f}T" if mc >= 1e12 else f"${mc/1e9:.1f}B" if mc >= 1e9 else f"${mc/1e6:.0f}M"
+                mc_str = f"{sym}{mc/1e12:.1f}T" if mc >= 1e12 else f"{sym}{mc/1e9:.1f}B" if mc >= 1e9 else f"{sym}{mc/1e6:.0f}M"
                 parts.append(f"(market cap {mc_str}).")
         if fin.get("trailing_pe") and fin["trailing_pe"] != "n/a":
             parts.append(f"P/E {fin['trailing_pe']}.")
