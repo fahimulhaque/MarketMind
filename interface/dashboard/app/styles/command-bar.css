@@ -1,0 +1,121 @@
+/* ═══════════════ COMMAND BAR (Header) ═══════════════ */
+
+.command-bar {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    height: 44px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    flex-shrink: 0;
+    gap: 0;
+}
+
+.command-prefix {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.command-input-wrap {
+    flex: 1;
+    position: relative;
+}
+
+.command-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    outline: none;
+    caret-color: var(--green);
+    padding: 0;
+}
+
+.command-input::placeholder {
+    color: #444;
+}
+
+/* Blinking block cursor after input */
+.command-input:focus+.block-cursor {
+    display: inline-block;
+}
+
+.block-cursor {
+    display: none;
+    color: var(--green);
+    animation: blink 1s step-end infinite;
+    font-size: 14px;
+    vertical-align: middle;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cmd-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--font);
+    font-size: 11px;
+    padding: 4px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    margin-left: 8px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.cmd-btn:hover:not(:disabled) {
+    background: var(--green);
+    color: #000;
+    border-color: var(--green);
+}
+
+.cmd-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.clock-strip {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-left: 16px;
+    flex-shrink: 0;
+}
+
+.clock-item {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.clock-item span {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.conn-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    display: inline-block;
+    animation: blink-dot 2s infinite;
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .clock-strip {
+        display: none;
+    }
+}

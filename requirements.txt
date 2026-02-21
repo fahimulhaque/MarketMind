@@ -1,0 +1,16 @@
+fastapi==0.115.8
+uvicorn==0.34.0
+celery==5.4.0
+redis==5.2.1
+psycopg2-binary==2.9.10
+httpx==0.28.1
+pydantic==2.10.6
+python-dotenv==1.0.1
+litellm>=1.0.0
+pydantic-settings>=2.0.0
+feedparser==6.0.11
+beautifulsoup4==4.12.3
+yfinance>=0.2.36
+# --- Data Providers ---
+duckduckgo-search==7.2.1
+lxml==5.3.0

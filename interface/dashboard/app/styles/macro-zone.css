@@ -1,0 +1,40 @@
+/* ═══════════════ ZONE B — MACRO / FINANCIALS ═══════════════ */
+
+.macro-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.macro-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 12px;
+    transition: background 0.15s ease;
+}
+
+.macro-row:hover {
+    background: #111;
+}
+
+.macro-key {
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.macro-val {
+    color: var(--text);
+    font-weight: 700;
+    text-align: right;
+}
+
+.macro-val.pos {
+    color: var(--green);
+}
+
+.macro-val.neg {
+    color: var(--red);
+}

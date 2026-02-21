@@ -1,0 +1,31 @@
+.insider-activity .net-badge {
+    font-size: 11px;
+    letter-spacing: 0px;
+}
+
+.insider-activity .terminal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.insider-activity .terminal-table th {
+    padding-bottom: 4px;
+    border-bottom: 1px dotted var(--color-border);
+    text-align: left;
+    font-weight: normal;
+    color: var(--color-text-secondary);
+}
+
+.insider-activity .terminal-table th.text-right {
+    text-align: right;
+}
+
+.insider-activity .terminal-table td {
+    padding: 4px 0;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+}
+
+.insider-activity .terminal-table td.text-right {
+    text-align: right;
+}

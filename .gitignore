@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+ENV/
+.coverage
+htmlcov/
+*.egg-info/
+.eggs/
+*.egg
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+coverage/
+.swc/
+.vercel/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Build / runtime artifacts
+dist/
+build/
+*.log
+logs/
+
+# OS / Editor
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Data / local state
+*.sqlite3
+*.db
+/tmp/
+brain/

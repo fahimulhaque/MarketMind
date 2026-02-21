@@ -1,0 +1,141 @@
+/* ═══════════════ ZONE A — ASSET PROFILE ═══════════════ */
+
+.asset-ticker {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.asset-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.asset-price {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+}
+
+.asset-currency {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.asset-change {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.asset-change.up {
+    color: var(--green);
+}
+
+.asset-change.down {
+    color: var(--red);
+}
+
+.asset-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #222;
+    border: 1px solid #222;
+    margin-top: 8px;
+}
+
+.a-metric {
+    background: var(--bg);
+    padding: 6px 8px;
+    transition: background 0.15s ease;
+}
+
+.a-metric:hover {
+    background: #111;
+}
+
+.a-metric-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.a-metric-val {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2px;
+}
+
+.a-metric-val.pos {
+    color: var(--green);
+}
+
+.a-metric-val.neg {
+    color: var(--red);
+}
+
+/* 52-Week Range Bar */
+.range-bar-wrap {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #222;
+}
+
+.range-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.range-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.range-val {
+    font-size: 10px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.range-track {
+    flex: 1;
+    height: 4px;
+    background: #222;
+    position: relative;
+}
+
+.range-marker {
+    position: absolute;
+    top: -4px;
+    width: 2px;
+    height: 12px;
+    background: var(--green);
+    transform: translateX(-50%);
+}
+
+@media (max-width: 900px) {
+    .asset-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .asset-price {
+        font-size: 28px;
+    }
+
+    .asset-change {
+        font-size: 14px;
+    }
+}

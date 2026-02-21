@@ -1,0 +1,118 @@
+/* ═══════════════ ZONE C — SIGNAL DASHBOARD ═══════════════ */
+
+.gauge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gauge-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.gauge-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gauge-value {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.gauge-track {
+    height: 12px;
+    background: #1a1a1a;
+    display: flex;
+    overflow: hidden;
+}
+
+.gauge-fill {
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+.gauge-fill.green {
+    background: var(--green);
+}
+
+.gauge-fill.orange {
+    background: var(--orange);
+}
+
+.gauge-fill.red {
+    background: var(--red);
+}
+
+.gauge-fill.yellow {
+    background: var(--yellow);
+}
+
+/* ASCII gauge text representation */
+.gauge-ascii {
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.gauge-on {
+    color: var(--green);
+}
+
+.gauge-off {
+    color: #333;
+}
+
+/* Decision/Risk cards in signal zone */
+.signal-card {
+    padding: 8px;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+    transition: border-color 0.2s ease;
+}
+
+.signal-card:hover {
+    border-color: var(--green);
+}
+
+.signal-card-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.signal-card-val {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.signal-card-val.bullish {
+    color: var(--green);
+}
+
+.signal-card-val.bearish {
+    color: var(--red);
+}
+
+.signal-card-val.neutral {
+    color: var(--yellow);
+}
+
+.signal-card-val.high {
+    color: var(--red);
+}
+
+.signal-card-val.medium {
+    color: var(--orange);
+}
+
+.signal-card-val.low {
+    color: var(--green);
+}

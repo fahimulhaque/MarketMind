@@ -1,0 +1,211 @@
+/* ═══════════════════════════════════════════════════════════
+   MARKETMIND — Global Styles & Design Tokens
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+
+/* --- Sub-module imports --- */
+@import './command-bar.css';
+@import './boot-sequence.css';
+@import './autocomplete.css';
+@import './bento-grid.css';
+@import './asset-profile.css';
+@import './macro-zone.css';
+@import './signal-dash.css';
+@import './narrative.css';
+@import './status-footer.css';
+@import './ai-disclaimer.css';
+@import './analyst-consensus.css';
+@import './insider-activity.css';
+@import './market-news.css';
+
+/* ═══════════════ DESIGN TOKENS ═══════════════ */
+
+:root {
+  --bg: #050505;
+  --panel: #0a0a0a;
+  --border: #333;
+  --text: #E0E0E0;
+  --text-dim: #777;
+  --green: #00FF41;
+  --orange: #FF5F00;
+  --red: #FF3333;
+  --yellow: #FFCC00;
+  --font: 'JetBrains Mono', 'Fira Code', 'IBM Plex Mono', monospace;
+}
+
+/* ═══════════════ RESET ═══════════════ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════════ SCROLLBAR ═══════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 0;
+}
+
+/* ═══════════════ SHELL ═══════════════ */
+
+.terminal-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ═══════════════ MAIN CONTENT AREA ═══════════════ */
+
+.terminal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* ═══════════════ ERROR ═══════════════ */
+
+.error-bar {
+  padding: 8px 12px;
+  background: rgba(255, 51, 51, 0.1);
+  border-left: 3px solid var(--red);
+  color: var(--red);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+/* ═══════════════ EXPANDED DETAILS ═══════════════ */
+
+details {
+  margin-top: 8px;
+}
+
+summary {
+  cursor: pointer;
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #333;
+}
+
+summary:hover {
+  color: var(--green);
+}
+
+/* ═══════════════ HOVER INVERSION ═══════════════ */
+
+.invert-hover:hover {
+  background: var(--green) !important;
+  color: #000 !important;
+}
+
+/* ═══════════════ ANIMATIONS ═══════════════ */
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease forwards;
+}
+
+/* ═══════════════ DATA TABLE ═══════════════ */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.data-table th {
+  text-align: right;
+  font-size: 9px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  padding: 6px 8px;
+  background: #0a0a0a;
+}
+
+.data-table th:first-child {
+  text-align: left;
+}
+
+.data-table td {
+  text-align: right;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 5px 8px;
+  color: var(--text);
+}
+
+.data-table td:first-child {
+  text-align: left;
+  color: var(--text-dim);
+}
+
+.data-table tr:hover td {
+  background: #0f0f0f;
+  color: var(--green);
+}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+
+@media (max-width: 600px) {
+  .command-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px;
+    gap: 8px;
+  }
+}

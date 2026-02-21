@@ -1,0 +1,36 @@
+/* ═══════════════ STATUS FOOTER ═══════════════ */
+
+.status-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    padding: 0 12px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+.status-left {
+    display: flex;
+    gap: 16px;
+}
+
+.status-right {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.status-item span {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.status-item.warn span {
+    color: var(--orange);
+}

@@ -1,0 +1,47 @@
+/* ═══════════════ BENTO GRID ═══════════════ */
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: auto auto;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+}
+
+.zone {
+    background: var(--bg);
+    padding: 12px;
+    overflow: hidden;
+}
+
+.zone-header {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #222;
+}
+
+/* Financial sub-sections */
+.fin-section {
+    margin-bottom: 10px;
+}
+
+.fin-title {
+    font-size: 9px;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px dashed #333;
+}
+
+@media (max-width: 900px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+}

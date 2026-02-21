@@ -1,0 +1,56 @@
+/* ═══════════════ AI DISCLAIMER & BADGES ═══════════════ */
+
+/* --- Global disclaimer bar --- */
+.ai-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 95, 0, 0.08);
+    border-left: 3px solid var(--orange);
+    margin-bottom: 12px;
+    font-size: 11px;
+    line-height: 1.5;
+    animation: fade-in 0.3s ease forwards;
+}
+
+.ai-disclaimer-icon {
+    color: var(--orange);
+    font-size: 14px;
+    flex-shrink: 0;
+    line-height: 1.3;
+}
+
+.ai-disclaimer-text {
+    color: var(--text-dim);
+}
+
+.ai-disclaimer-text strong {
+    color: var(--orange);
+    font-weight: 700;
+}
+
+/* --- Inline AI-generated badge pill --- */
+.ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 6px;
+    background: rgba(255, 95, 0, 0.15);
+    border: 1px solid rgba(255, 95, 0, 0.3);
+    border-radius: 2px;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 1.6;
+}
+
+/* --- Section wrapper for AI-generated content --- */
+.ai-generated-section {
+    position: relative;
+    margin-top: 4px;
+}
