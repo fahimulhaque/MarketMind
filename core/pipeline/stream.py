@@ -76,7 +76,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
         if _needs_refresh(existing):
             enrichment_summary = {}
             try:
-                enrichment_summary = run_full_enrichment(query_text)
+                enrichment_summary = run_full_enrichment(query_text, pre_resolved_ticker=ticker)
             except Exception as exc:
                 logger.warning("Full enrichment failed: %s", exc)
 
@@ -93,7 +93,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
                 }, f"{pr.get('provider', 'Provider')}: {pr.get('records_stored', 0)} records")
 
             # Also run RSS source discovery
-            discovered = discover_query_sources(query_text)
+            discovered = discover_query_sources(query_text, pre_resolved_ticker=ticker)
             rss_results: list[dict] = []
             rss_source_ids: list[int] = []
             for candidate in discovered[:5]:
@@ -147,7 +147,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
 
     # --- Stage 5: Financial snapshot ---
     yield _event("financial_snapshot_started", 0.38, message="Fetching financial data...")
-    financial_snapshot = fetch_financial_snapshot(query_text)
+    financial_snapshot = fetch_financial_snapshot(query_text, pre_resolved_ticker=ticker)
     financial_performance = _build_financial_performance(financial_snapshot)
     yield _event("financial_snapshot", 0.42, financial_performance,
                  f"Market cap: {financial_performance.get('summary', 'n/a')[:60]}")

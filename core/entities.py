@@ -246,7 +246,7 @@ def _enrich_from_fmp(ticker: str) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def resolve_entity(query_text: str) -> Optional[dict]:
+def resolve_entity(query_text: str, pre_resolved_ticker: str | None = None) -> Optional[dict]:
     """Resolve free-text query to a canonical entity record.
 
     Resolution order:
@@ -260,16 +260,23 @@ def resolve_entity(query_text: str) -> Optional[dict]:
     _ensure_entities_table()
 
     # 1. Check cache
+    if pre_resolved_ticker:
+        existing = _lookup_entity(pre_resolved_ticker)
+        if existing:
+            return existing
+            
     existing = _lookup_entity(query_text)
     if existing:
         return existing
 
     # 2. Yahoo resolution
-    yahoo = _resolve_via_yahoo(query_text)
-    if not yahoo or not yahoo.get("ticker"):
-        return None
-
-    ticker = yahoo["ticker"]
+    ticker = pre_resolved_ticker
+    yahoo = {}
+    if not ticker:
+        yahoo = _resolve_via_yahoo(query_text)
+        if not yahoo or not yahoo.get("ticker"):
+            return None
+        ticker = yahoo["ticker"]
 
     # Check again by resolved ticker (in case query was a name)
     existing = _lookup_entity(ticker)
@@ -291,14 +298,17 @@ def resolve_entity(query_text: str) -> Optional[dict]:
         }
     )
 
+    # Map name properly if we skipped yahoo
+    final_name = fmp.get("name") or (yahoo.get("name") if yahoo else None) or query_text.strip()
+    
     entity = _upsert_entity(
-        name=fmp.get("name") or yahoo.get("name", query_text.strip()),
+        name=final_name,
         ticker=ticker,
         cik=cik,
         sector=fmp.get("sector", ""),
         industry=fmp.get("industry", ""),
-        exchange=yahoo.get("exchange", ""),
-        entity_type=yahoo.get("entity_type", "company"),
+        exchange=yahoo.get("exchange", "") if yahoo else "",
+        entity_type=yahoo.get("entity_type", "company") if yahoo else "company",
         aliases=aliases,
     )
     return entity

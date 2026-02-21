@@ -309,7 +309,7 @@ def run_market_intelligence_query(query_text: str, limit: int = 20) -> dict:
     top_evidence = ranked[:limit]
 
     # 5. Build all intelligence sections (data gathering — no LLM calls)
-    financial_snapshot = fetch_financial_snapshot(query_text)
+    financial_snapshot = fetch_financial_snapshot(query_text, pre_resolved_ticker=ticker)
     historical_trends = _build_historical_trends(ticker)
     macro_context = _build_macro_context()
     social_sentiment = _build_social_sentiment(ticker)
