@@ -1,0 +1,302 @@
+{
+  "repo_notes": [
+    {
+      "content": ""
+    }
+  ],
+  "pages": [
+    {
+      "title": "Home",
+      "purpose": "Introduction to TickerAgent - what it is, key features, and high-level architecture overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Getting Started",
+      "purpose": "Guide users through initial setup, installation, and first steps with TickerAgent",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Installation",
+      "purpose": "Detailed instructions for installing TickerAgent using Docker Compose",
+      "parent": "Getting Started",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Configuration",
+      "purpose": "Complete guide to environment variables and system configuration",
+      "parent": "Getting Started",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Development Setup",
+      "purpose": "Setting up a local development environment for contributing to TickerAgent",
+      "parent": "Getting Started",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Architecture",
+      "purpose": "Overview of TickerAgent's system architecture and component relationships",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "API Gateway",
+      "purpose": "Deep dive into the FastAPI application structure, routing, and middleware",
+      "parent": "Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Authentication & Security",
+      "purpose": "Explain API authentication mechanisms and security policies",
+      "parent": "Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Data Connectors",
+      "purpose": "Architecture and design of the connector framework for data ingestion",
+      "parent": "Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "API Reference",
+      "purpose": "Complete reference documentation for all API endpoints",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Health & Monitoring",
+      "purpose": "Health check and operational metrics endpoints",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Search & Intelligence",
+      "purpose": "Market intelligence query endpoints including synchronous and streaming search",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Insights",
+      "purpose": "Endpoints for retrieving and managing market insights",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Reports",
+      "purpose": "Report generation and retrieval endpoints",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Agents",
+      "purpose": "Agent operations for data ingestion and processing",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Configuration Management",
+      "purpose": "Endpoints for managing data sources and system configuration",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Compliance",
+      "purpose": "Data deletion requests and retention policy management",
+      "parent": "API Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Connectors",
+      "purpose": "Documentation for data source connectors and the connector framework",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Connector Framework",
+      "purpose": "Base classes and abstractions for building data connectors",
+      "parent": "Connectors",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "RSS Connector",
+      "purpose": "RSS/Atom feed connector implementation",
+      "parent": "Connectors",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Provider Framework",
+      "purpose": "Structured API connectors for financial data providers",
+      "parent": "Connectors",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Contributing",
+      "purpose": "Guidelines and processes for contributing to the TickerAgent project",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Contribution Guidelines",
+      "purpose": "Detailed instructions on how to contribute code, documentation, and enhancements",
+      "parent": "Contributing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Code of Conduct",
+      "purpose": "Community standards and behavioral expectations",
+      "parent": "Contributing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Reporting Issues",
+      "purpose": "How to report bugs and request features using issue templates",
+      "parent": "Contributing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Pull Request Process",
+      "purpose": "Guidelines and checklist for submitting pull requests",
+      "parent": "Contributing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Security Policy",
+      "purpose": "Security vulnerability reporting and supported versions",
+      "parent": "Contributing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "purpose": "Additional reference material including environment variables, license, and development tools",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Environment Variables",
+      "purpose": "Complete reference of all environment variables and their purposes",
+      "parent": "Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "License",
+      "purpose": "MIT License terms and conditions",
+      "parent": "Reference",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    }
+  ]
+}
