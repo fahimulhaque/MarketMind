@@ -30,6 +30,3 @@ Before opening this PR, please ensure you've checked against our Contributing Gu
 - [ ] I have commented my code, particularly in hard-to-understand areas.
 - [ ] I have made corresponding changes to the documentation (if applicable).
 - [ ] My changes generate no new warnings or errors.
-
-## Additional Context
-<!-- Add any other context or screenshots about the pull request here. -->

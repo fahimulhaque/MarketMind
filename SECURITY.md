@@ -6,18 +6,16 @@ We currently support the following versions of MarketMind for security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| v0.1.x  | :white_check_mark: |
+| 0.1.x   | :white_check_mark: |
 
 *Older versions may not receive security updates. Please upgrade to the latest minor version.*
 
 ## Reporting a Vulnerability
 
-Security is a priority for the MarketMind project. If you discover a security vulnerability within MarketMind we kindly ask that you do **not** open a public issue. By privately disclosing vulnerabilities, you give the maintainers time to coordinate a fix and release it before the vulnerability is made public.
+Security is a priority for the MarketMind project. If you discover a security vulnerability within MarketMind, we kindly ask that you do **not** open a public issue. By privately disclosing vulnerabilities, you give the maintainers time to coordinate a fix and release it before the vulnerability is made public.
 
-To report a vulnerability, please do one of the following:
-
-1. **Email us directly:** Send an email to the project maintainers outlining the issue, steps to reproduce it, and any possible impact. (Update with security contact email)
-2. **GitHub Security Advisories:** If applicable on the repository, use GitHub's private vulnerability reporting feature: `Security` -> `Advisories` -> `Report a vulnerability`.
+To report a vulnerability, please use the **GitHub Security Advisories** feature:
+Go to `Security` -> `Advisories` -> `Report a vulnerability` on the repository page.
 
 ### What to include in your report
 - High-level overview of the vulnerability.
