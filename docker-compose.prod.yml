@@ -16,17 +16,6 @@ services:
       retries: 5
     profiles: ["core", "intelligence", "platform", "full"]
 
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    profiles: ["core", "intelligence", "platform", "full"]
-
   ollama:
     image: ollama/ollama:latest
     ports:
@@ -67,25 +56,21 @@ services:
         echo "All models ready."
     profiles: ["core", "intelligence", "platform", "full"]
 
-
   api:
     build:
       context: .
       dockerfile: docker/Dockerfile.app
     env_file:
-      - .env
+      - .env.prod
     environment:
-      # Docker-internal hostnames (override env_file localhost defaults)
       POSTGRES_HOST: postgres
-      REDIS_HOST: redis
       OLLAMA_HOST: http://ollama:11434
+      # REDIS is external in prod env, configuring it via .env.prod (e.g. REDIS_HOST=host.docker.internal)
     ports:
-      - "8000:8000"
+      - "8080:8000"
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000
     depends_on:
       postgres:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
@@ -99,17 +84,13 @@ services:
       context: .
       dockerfile: docker/Dockerfile.app
     env_file:
-      - .env
+      - .env.prod
     environment:
-      # Docker-internal hostnames (override env_file localhost defaults)
       POSTGRES_HOST: postgres
-      REDIS_HOST: redis
       OLLAMA_HOST: http://ollama:11434
     command: celery -A workers.celery_app.celery_app worker --loglevel=INFO
     depends_on:
       postgres:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     profiles: ["core", "intelligence", "platform", "full"]
 
@@ -118,10 +99,11 @@ services:
       context: .
       dockerfile: docker/Dockerfile.dashboard
     environment:
-      NEXT_PUBLIC_API_BASE: http://localhost:8000
+      # Adjusted API Base to proxy through the context /api
+      NEXT_PUBLIC_API_BASE: https://api.fahimulhaque.org/api
       NEXT_PUBLIC_API_WRITE_KEY: ${API_WRITE_KEY:-tickeragent-dev-key}
     ports:
-      - "3000:3000"
+      - "3005:3000"
     depends_on:
       api:
         condition: service_healthy
