@@ -14,20 +14,15 @@ from core.config import get_settings
 
 settings = get_settings()
 
-cors_origins = list(settings.cors_origins)
-if "https://tickeragent.fahimulhaque.org" not in cors_origins:
-    cors_origins.append("https://tickeragent.fahimulhaque.org")
-
-app = FastAPI(title="TickerAgent API", version="0.3.0-phase3", root_path="/tickeragent")
+app = FastAPI(title="TickerAgent API", version="0.3.0-phase3")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.on_event("startup")
 def startup() -> None:
