@@ -9,7 +9,48 @@ from typing import Any
 logger = logging.getLogger(__name__)
 
 
-def _fmt(value: Any) -> str:
+def _get_currency_symbol(currency_code: str | None) -> str:
+    """Map a standard currency code (e.g., 'USD', 'INR', 'GBP') to its symbol."""
+    if not currency_code:
+        return "$"
+        
+    code_upper = currency_code.strip().upper()
+    _SYMBOLS: dict[str, str] = {
+        "USD": "$",  # US Dollar
+        "EUR": "€",  # Euro
+        "GBP": "£",  # British Pound
+        "JPY": "¥",  # Japanese Yen
+        "CNY": "¥",  # Chinese Yuan
+        "INR": "₹",  # Indian Rupee
+        "CAD": "C$", # Canadian Dollar
+        "AUD": "A$", # Australian Dollar
+        "CHF": "CHF",# Swiss Franc
+        "HKD": "HK$",# Hong Kong Dollar
+        "SGD": "S$", # Singapore Dollar
+        "NZD": "NZ$",# New Zealand Dollar
+        "ZAR": "R",  # South African Rand
+        "KRW": "₩",  # South Korean Won
+        "BRL": "R$", # Brazilian Real
+        "MXN": "$",  # Mexican Peso
+        "IDR": "Rp", # Indonesian Rupiah
+        "MYR": "RM", # Malaysian Ringgit
+        "PHP": "₱",  # Philippine Peso
+        "THB": "฿",  # Thai Baht
+        "VND": "₫",  # Vietnamese Dong
+        "ILS": "₪",  # Israeli New Shekel
+        "SEK": "kr", # Swedish Krona
+        "NOK": "kr", # Norwegian Krone
+        "DKK": "kr", # Danish Krone
+        "PLN": "zł", # Polish Zloty
+        "HUF": "Ft", # Hungarian Forint
+        "CZK": "Kč", # Czech Koruna
+        "RUB": "₽",  # Russian Ruble
+        "TRY": "₺",  # Turkish Lira
+    }
+    return _SYMBOLS.get(code_upper, f"{code_upper} ")
+
+
+def _fmt(value: Any, currency: str = "$") -> str:
     """Format a number compactly."""
     if value is None:
         return "n/a"
@@ -19,12 +60,12 @@ def _fmt(value: Any) -> str:
         return str(value)
     a = abs(n)
     if a >= 1e12:
-        return f"${n / 1e12:.1f}T"
+        return f"{currency}{n / 1e12:.1f}T"
     if a >= 1e9:
-        return f"${n / 1e9:.1f}B"
+        return f"{currency}{n / 1e9:.1f}B"
     if a >= 1e6:
-        return f"${n / 1e6:.1f}M"
-    return f"${n:,.0f}"
+        return f"{currency}{n / 1e6:.1f}M"
+    return f"{currency}{n:,.0f}"
 
 
 def _format_evidence_block(items: list[dict]) -> str:
@@ -40,14 +81,14 @@ def _format_evidence_block(items: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def _format_financials_block(snapshot: dict) -> str:
+def _format_financials_block(snapshot: dict, currency: str = "$") -> str:
     if not snapshot or not snapshot.get("symbol"):
         return "No financial snapshot available."
     src = snapshot.get("source", "market_data")
     parts = [
         f"Symbol: {snapshot.get('symbol')}",
         f"Price: {snapshot.get('price')} {snapshot.get('currency', '')} (Source: {src})".strip(),
-        f"Market Cap: {_fmt(snapshot.get('market_cap'))} (Source: {src})",
+        f"Market Cap: {_fmt(snapshot.get('market_cap'), currency)} (Source: {src})",
         f"P/E (trailing): {snapshot.get('trailing_pe', 'n/a')} (Source: {src})",
         f"P/E (forward): {snapshot.get('forward_pe', 'n/a')} (Source: {src})",
         f"Revenue Growth YoY: {_pct(snapshot.get('revenue_growth'))} (Source: {src})",
@@ -86,7 +127,7 @@ def _format_sentiment_block(sentiment: dict) -> str:
     )
 
 
-def _format_trend_block(historical: dict) -> str:
+def _format_trend_block(historical: dict, currency: str = "$") -> str:
     if not historical or not historical.get("available"):
         return "No historical financial data available."
     quarters = historical.get("quarters", [])[:4]
@@ -95,7 +136,7 @@ def _format_trend_block(historical: dict) -> str:
     lines = [f"Trend direction: {historical.get('trend_direction', 'unknown')}"]
     for q in quarters:
         lines.append(
-            f"  {q.get('period_end', '?')}: Rev={_fmt(q.get('revenue'))} NI={_fmt(q.get('net_income'))}"
+            f"  {q.get('period_end', '?')}: Rev={_fmt(q.get('revenue'), currency)} NI={_fmt(q.get('net_income'), currency)}"
         )
     return "\n".join(lines)
 

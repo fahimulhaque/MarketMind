@@ -9,6 +9,7 @@ from core.llm.formatters import (
     _format_macro_block,
     _format_sentiment_block,
     _format_trend_block,
+    _get_currency_symbol,
 )
 
 
@@ -60,11 +61,12 @@ def _build_executive_summary_prompt(
     historical: dict,
 ) -> str:
     """Build the executive summary prompt (shared by batch + stream)."""
+    currency = _get_currency_symbol(financials.get("currency"))
     evidence_block = _format_evidence_block(top_evidence[:5])
-    fin_block = _format_financials_block(financials)
+    fin_block = _format_financials_block(financials, currency)
     macro_block = _format_macro_block(macro)
     sentiment_block = _format_sentiment_block(sentiment)
-    trend_block = _format_trend_block(historical)
+    trend_block = _format_trend_block(historical, currency)
 
     return f"""Analyze the following market intelligence for the query: "{query}"
 
@@ -110,9 +112,10 @@ def _build_market_narrative_prompt(
     executive_verdict: str = "",
 ) -> str:
     """Build the market narrative prompt (shared by batch + stream)."""
+    currency = _get_currency_symbol(financials.get("currency"))
     evidence_block = _format_evidence_block(top_evidence[:6])
-    fin_block = _format_financials_block(financials)
-    trend_block = _format_trend_block(historical)
+    fin_block = _format_financials_block(financials, currency)
+    trend_block = _format_trend_block(historical, currency)
     macro_block = _format_macro_block(macro)
     sentiment_block = _format_sentiment_block(sentiment)
 
@@ -174,8 +177,9 @@ def _build_competitive_landscape_prompt(
     industry: str = "",
 ) -> str:
     """Build the competitive landscape prompt (shared by batch + stream)."""
+    currency = _get_currency_symbol(financials.get("currency"))
     evidence_block = _format_evidence_block(top_evidence[:6])
-    fin_block = _format_financials_block(financials)
+    fin_block = _format_financials_block(financials, currency)
 
     sector_info = ""
     if sector or industry:
@@ -213,9 +217,10 @@ def _build_scenarios_prompt(
     macro: dict,
 ) -> str:
     """Build the scenario planning prompt."""
+    currency = _get_currency_symbol(financials.get("currency"))
     evidence_block = _format_evidence_block(top_evidence[:5])
-    fin_block = _format_financials_block(financials)
-    trend_block = _format_trend_block(historical)
+    fin_block = _format_financials_block(financials, currency)
+    trend_block = _format_trend_block(historical, currency)
     macro_block = _format_macro_block(macro)
 
     return f"""Given this market intelligence for "{query}":
@@ -301,15 +306,16 @@ def _build_trend_analysis_prompt(
     ticker: str,
     quarterly_data: list[dict],
     annual_data: list[dict],
+    currency: str = "$",
 ) -> str:
     """Build the trend analysis prompt."""
     q_lines = []
     for q in quarterly_data[:8]:
         q_lines.append(
             f"  {q.get('period_end', '?')}: "
-            f"Rev={_fmt(q.get('revenue'))} "
-            f"NI={_fmt(q.get('net_income'))} "
-            f"GP={_fmt(q.get('gross_profit'))} "
+            f"Rev={_fmt(q.get('revenue'), currency)} "
+            f"NI={_fmt(q.get('net_income'), currency)} "
+            f"GP={_fmt(q.get('gross_profit'), currency)} "
             f"EPS={q.get('eps', 'n/a')}"
         )
 
@@ -317,9 +323,9 @@ def _build_trend_analysis_prompt(
     for a in annual_data[:5]:
         a_lines.append(
             f"  {a.get('period_end', '?')}: "
-            f"Rev={_fmt(a.get('revenue'))} "
-            f"NI={_fmt(a.get('net_income'))} "
-            f"GP={_fmt(a.get('gross_profit'))}"
+            f"Rev={_fmt(a.get('revenue'), currency)} "
+            f"NI={_fmt(a.get('net_income'), currency)} "
+            f"GP={_fmt(a.get('gross_profit'), currency)}"
         )
 
     return f"""Analyze the financial trends for {ticker}:

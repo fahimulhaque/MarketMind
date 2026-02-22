@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/analyst-consensus.css';
 
-export function AnalystConsensus({ data, isStreaming = false }: { data: any, isStreaming?: boolean }) {
+export function AnalystConsensus({ data, isStreaming = false, currencySymbol = '$' }: { data: any, isStreaming?: boolean, currencySymbol?: string }) {
     if (!data || !data.analyst_count) return null;
 
     const total = data.analyst_count;
@@ -18,9 +18,9 @@ export function AnalystConsensus({ data, isStreaming = false }: { data: any, isS
                 {sellPct > 0 && <div className="bar-segment sell" style={{ width: `${sellPct}%` }}>{sellPct}% SEL</div>}
             </div>
             <div className="target-prices">
-                <div>LOW: ${data.target_low?.toFixed(2) || 'N/A'}</div>
-                <div>AVG: ${data.target_mean?.toFixed(2) || 'N/A'}</div>
-                <div>HIGH: ${data.target_high?.toFixed(2) || 'N/A'}</div>
+                <div>LOW: {currencySymbol}{data.target_low?.toFixed(2) || 'N/A'}</div>
+                <div>AVG: {currencySymbol}{data.target_mean?.toFixed(2) || 'N/A'}</div>
+                <div>HIGH: {currencySymbol}{data.target_high?.toFixed(2) || 'N/A'}</div>
             </div>
         </div>
     );

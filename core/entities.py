@@ -10,6 +10,7 @@ import json
 import logging
 from datetime import datetime, timezone
 from typing import Optional
+import re
 
 import httpx
 from psycopg2.extras import RealDictCursor
@@ -125,12 +126,27 @@ def _upsert_entity(
 def _resolve_via_yahoo(query_text: str) -> Optional[dict]:
     """Resolve query to ticker+metadata via Yahoo Finance search API."""
     try:
-        tokens = query_text.strip().split()
-        attempts = [query_text.strip()]
+        query_clean = query_text.strip()
+        attempts = [query_clean]
+        
+        # Prioritize explicit tickers in parentheses, e.g. (TMCV.NS)
+        explicit_match = re.search(r'\(([A-Z0-9.-]+)\)', query_clean, re.IGNORECASE)
+        if explicit_match:
+            attempts.insert(0, explicit_match.group(1).upper())
+            
+        tokens = query_clean.split()
         if len(tokens) > 1:
             attempts.append(tokens[0])
+            
+        # Deduplicate attempts while preserving order
+        seen = set()
+        unique_attempts = []
+        for a in attempts:
+            if a not in seen:
+                seen.add(a)
+                unique_attempts.append(a)
 
-        for attempt in attempts:
+        for attempt in unique_attempts:
             resp = httpx.get(
                 "https://query2.finance.yahoo.com/v1/finance/search",
                 params={"q": attempt, "quotesCount": 3, "newsCount": 0},
@@ -230,7 +246,7 @@ def _enrich_from_fmp(ticker: str) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def resolve_entity(query_text: str) -> Optional[dict]:
+def resolve_entity(query_text: str, pre_resolved_ticker: str | None = None) -> Optional[dict]:
     """Resolve free-text query to a canonical entity record.
 
     Resolution order:
@@ -244,16 +260,23 @@ def resolve_entity(query_text: str) -> Optional[dict]:
     _ensure_entities_table()
 
     # 1. Check cache
+    if pre_resolved_ticker:
+        existing = _lookup_entity(pre_resolved_ticker)
+        if existing:
+            return existing
+            
     existing = _lookup_entity(query_text)
     if existing:
         return existing
 
     # 2. Yahoo resolution
-    yahoo = _resolve_via_yahoo(query_text)
-    if not yahoo or not yahoo.get("ticker"):
-        return None
-
-    ticker = yahoo["ticker"]
+    ticker = pre_resolved_ticker
+    yahoo = {}
+    if not ticker:
+        yahoo = _resolve_via_yahoo(query_text)
+        if not yahoo or not yahoo.get("ticker"):
+            return None
+        ticker = yahoo["ticker"]
 
     # Check again by resolved ticker (in case query was a name)
     existing = _lookup_entity(ticker)
@@ -275,14 +298,17 @@ def resolve_entity(query_text: str) -> Optional[dict]:
         }
     )
 
+    # Map name properly if we skipped yahoo
+    final_name = fmp.get("name") or (yahoo.get("name") if yahoo else None) or query_text.strip()
+    
     entity = _upsert_entity(
-        name=fmp.get("name") or yahoo.get("name", query_text.strip()),
+        name=final_name,
         ticker=ticker,
         cik=cik,
         sector=fmp.get("sector", ""),
         industry=fmp.get("industry", ""),
-        exchange=yahoo.get("exchange", ""),
-        entity_type=yahoo.get("entity_type", "company"),
+        exchange=yahoo.get("exchange", "") if yahoo else "",
+        entity_type=yahoo.get("entity_type", "company") if yahoo else "company",
         aliases=aliases,
     )
     return entity

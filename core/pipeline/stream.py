@@ -76,7 +76,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
         if _needs_refresh(existing):
             enrichment_summary = {}
             try:
-                enrichment_summary = run_full_enrichment(query_text)
+                enrichment_summary = run_full_enrichment(query_text, pre_resolved_ticker=ticker)
             except Exception as exc:
                 logger.warning("Full enrichment failed: %s", exc)
 
@@ -93,7 +93,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
                 }, f"{pr.get('provider', 'Provider')}: {pr.get('records_stored', 0)} records")
 
             # Also run RSS source discovery
-            discovered = discover_query_sources(query_text)
+            discovered = discover_query_sources(query_text, pre_resolved_ticker=ticker)
             rss_results: list[dict] = []
             rss_source_ids: list[int] = []
             for candidate in discovered[:5]:
@@ -147,7 +147,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
 
     # --- Stage 5: Financial snapshot ---
     yield _event("financial_snapshot_started", 0.38, message="Fetching financial data...")
-    financial_snapshot = fetch_financial_snapshot(query_text)
+    financial_snapshot = fetch_financial_snapshot(query_text, pre_resolved_ticker=ticker)
     financial_performance = _build_financial_performance(financial_snapshot)
     yield _event("financial_snapshot", 0.42, financial_performance,
                  f"Market cap: {financial_performance.get('summary', 'n/a')[:60]}")
@@ -173,6 +173,7 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
             ticker=ticker,
             quarterly_data=historical_trends.get("quarters", []),
             annual_data=historical_trends.get("annual", []),
+            currency_code=financial_snapshot.get("currency"),
         )
     yield _event("historical_trends", 0.50, {
         "trends": historical_trends,
@@ -269,11 +270,13 @@ def run_market_intelligence_query_stream(query_text: str, limit: int = 20):
         # Data-rich fallback
         parts = [f"Analysis for '{query_text}': "]
         fin = financial_snapshot or {}
+        from core.llm.formatters import _get_currency_symbol
+        sym = _get_currency_symbol(fin.get("currency"))
         if fin.get("price"):
-            parts.append(f"Current price ${fin['price']}")
+            parts.append(f"Current price {sym}{fin['price']}")
             if fin.get("market_cap"):
                 mc = fin["market_cap"]
-                mc_str = f"${mc/1e12:.1f}T" if mc >= 1e12 else f"${mc/1e9:.1f}B" if mc >= 1e9 else f"${mc/1e6:.0f}M"
+                mc_str = f"{sym}{mc/1e12:.1f}T" if mc >= 1e12 else f"{sym}{mc/1e9:.1f}B" if mc >= 1e9 else f"{sym}{mc/1e6:.0f}M"
                 parts.append(f"(market cap {mc_str}).")
         if fin.get("trailing_pe") and fin["trailing_pe"] != "n/a":
             parts.append(f"P/E {fin['trailing_pe']}.")

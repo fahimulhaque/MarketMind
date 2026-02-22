@@ -15,16 +15,17 @@ logger = logging.getLogger(__name__)
 
 def _enrich_for_query(query_text: str, query_context: dict, max_sources: int = 5) -> dict:
     """Run full multi-provider enrichment + RSS ingest for the query."""
+    ticker = query_context.get("ticker")
 
     # 1. Run structured provider enrichment (SEC, FMP, FRED, etc.)
     enrichment_summary = {}
     try:
-        enrichment_summary = run_full_enrichment(query_text)
+        enrichment_summary = run_full_enrichment(query_text, pre_resolved_ticker=ticker)
     except Exception as exc:
         logger.warning("Full enrichment failed for %r: %s", query_text, exc)
 
     # 2. Also run RSS source discovery + sync ingest (web/news content)
-    discovered = discover_query_sources(query_text)
+    discovered = discover_query_sources(query_text, pre_resolved_ticker=ticker)
     refreshed: list[dict] = []
     source_ids: list[int] = []
 

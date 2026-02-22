@@ -109,6 +109,8 @@ def _build_financial_performance(financial_snapshot: dict) -> dict:
         "beta": financial_snapshot.get("beta"),
         "sector": financial_snapshot.get("sector"),
         "industry": financial_snapshot.get("industry"),
+        "currency": financial_snapshot.get("currency"),
+        "price": financial_snapshot.get("price"),
         "valuation": valuation,
         "growth": growth,
         "profitability": profitability,

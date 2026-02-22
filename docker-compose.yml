@@ -99,7 +99,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.app
     env_file:
-      - .env.example
+      - .env
     environment:
       # Docker-internal hostnames (override env_file localhost defaults)
       POSTGRES_HOST: postgres

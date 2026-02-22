@@ -4,6 +4,7 @@ import type { StreamState } from '../lib/types'
 import { GaugeBar } from './GaugeBar'
 import { AnalystConsensus } from './AnalystConsensus'
 import { InsiderActivity } from './InsiderActivity'
+import { getCurrencySymbol } from '../lib/format'
 
 // ---------------------------------------------------------------------------
 // SignalDash — sentiment gauges, verdict, risk, signals, contradictions
@@ -13,6 +14,11 @@ export function SignalDash({ s }: { s: StreamState }) {
     const decision = s.decision
     const sentiment = s.socialSentiment as Record<string, unknown> | null
     const coverage = s.coverage as Record<string, unknown> | null
+
+    // Get dynamic currency symbol from financial performance
+    const fp = s.financialPerformance as Record<string, unknown> | null
+    const currencyCode = String(fp?.currency || 'USD')
+    const currencySymbol = getCurrencySymbol(currencyCode)
 
     // Derive gauge values
     const confidencePct = decision ? Math.round(decision.confidence * 100) : 0
@@ -132,7 +138,7 @@ export function SignalDash({ s }: { s: StreamState }) {
                     : null}
 
                 {/* Analyst Consensus & Insider Activity */}
-                {s.analystConsensus && <AnalystConsensus data={s.analystConsensus} isStreaming={s.analystStreaming} />}
+                {s.analystConsensus && <AnalystConsensus data={s.analystConsensus} isStreaming={s.analystStreaming} currencySymbol={currencySymbol} />}
                 {s.insiderActivity && <InsiderActivity data={s.insiderActivity} isStreaming={s.insiderStreaming} />}
 
                 {/* Signal shifts */}

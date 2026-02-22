@@ -89,11 +89,14 @@ def generate_trend_analysis(
     ticker: str,
     quarterly_data: list[dict],
     annual_data: list[dict],
+    currency_code: str | None = None,
 ) -> str | None:
     """Generate an LLM analysis of financial trends."""
     if not quarterly_data and not annual_data:
         return None
-    prompt = _build_trend_analysis_prompt(ticker, quarterly_data, annual_data)
+    from core.llm.formatters import _get_currency_symbol
+    currency = _get_currency_symbol(currency_code)
+    prompt = _build_trend_analysis_prompt(ticker, quarterly_data, annual_data, currency)
     return ollama_generate(prompt, system=_SYSTEM_ANALYST, temperature=0.25, max_tokens=256)
 
 
@@ -150,7 +153,9 @@ async def generate_parallel_intelligence(
     quarterly = historical.get("quarters", []) if historical else []
     annual = historical.get("annual", []) if historical else []
     if (quarterly or annual) and ticker:
-        trend_prompt = _build_trend_analysis_prompt(ticker, quarterly, annual)
+        from core.llm.formatters import _get_currency_symbol
+        currency = _get_currency_symbol(financials.get("currency"))
+        trend_prompt = _build_trend_analysis_prompt(ticker, quarterly, annual, currency)
 
     # Build task definitions: (prompt, system, temperature, max_tokens)
     task_defs = [

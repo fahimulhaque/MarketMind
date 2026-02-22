@@ -85,11 +85,13 @@ def _summarize_decision(
         # --- Data-rich fallback when LLM is unavailable ---
         parts = [f"Analysis for '{query_text}': "]
         fin = financials or {}
+        from core.llm.formatters import _get_currency_symbol
+        sym = _get_currency_symbol(fin.get("currency"))
         if fin.get("price"):
-            parts.append(f"Current price ${fin['price']}")
+            parts.append(f"Current price {sym}{fin['price']}")
             if fin.get("market_cap"):
                 mc = fin["market_cap"]
-                mc_str = f"${mc/1e12:.1f}T" if mc >= 1e12 else f"${mc/1e9:.1f}B" if mc >= 1e9 else f"${mc/1e6:.0f}M"
+                mc_str = f"{sym}{mc/1e12:.1f}T" if mc >= 1e12 else f"{sym}{mc/1e9:.1f}B" if mc >= 1e9 else f"{sym}{mc/1e6:.0f}M"
                 parts.append(f"(market cap {mc_str}).")
         if fin.get("trailing_pe") and fin["trailing_pe"] != "n/a":
             parts.append(f"P/E {fin['trailing_pe']}.")
@@ -198,12 +200,14 @@ def _synthesize_report(
 
     # --- LLM-powered trend analysis ---
     ticker = query_context.get("ticker")
+    currency = financial_snapshot.get("currency")
     trend_analysis_text = None
     if historical_trends.get("available") and ticker:
         trend_analysis_text = llm_module.generate_trend_analysis(
             ticker=ticker,
             quarterly_data=historical_trends.get("quarters", []),
             annual_data=historical_trends.get("annual", []),
+            currency_code=currency,
         )
 
     contradictions = _detect_contradictions(evidence)
@@ -309,7 +313,7 @@ def run_market_intelligence_query(query_text: str, limit: int = 20) -> dict:
     top_evidence = ranked[:limit]
 
     # 5. Build all intelligence sections (data gathering — no LLM calls)
-    financial_snapshot = fetch_financial_snapshot(query_text)
+    financial_snapshot = fetch_financial_snapshot(query_text, pre_resolved_ticker=ticker)
     historical_trends = _build_historical_trends(ticker)
     macro_context = _build_macro_context()
     social_sentiment = _build_social_sentiment(ticker)

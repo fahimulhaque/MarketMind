@@ -130,7 +130,7 @@ def resolve_yahoo_symbol(query_text: str) -> str | None:
 # ---------------------------------------------------------------------------
 
 
-def discover_query_sources(query_text: str) -> list[dict]:
+def discover_query_sources(query_text: str, pre_resolved_ticker: str | None = None) -> list[dict]:
     """Generate ingestible source URLs for a query (Google News + Yahoo)."""
     encoded_query = quote_plus(query_text)
     sources = [
@@ -141,7 +141,7 @@ def discover_query_sources(query_text: str) -> list[dict]:
         }
     ]
 
-    symbol = resolve_yahoo_symbol(query_text)
+    symbol = pre_resolved_ticker or resolve_yahoo_symbol(query_text)
     if symbol:
         sources.extend(
             [
@@ -166,7 +166,7 @@ def discover_query_sources(query_text: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 
-def run_full_enrichment(query_text: str) -> dict:
+def run_full_enrichment(query_text: str, pre_resolved_ticker: str | None = None) -> dict:
     """Run all configured providers for a query, update coverage.
 
     This is the main entry point for deep data enrichment.  It:
@@ -186,7 +186,7 @@ def run_full_enrichment(query_text: str) -> dict:
     }
 
     # 1. Entity resolution
-    entity = resolve_entity(query_text)
+    entity = resolve_entity(query_text, pre_resolved_ticker)
     if not entity:
         logger.warning("Could not resolve entity for %r — falling back to RSS only", query_text)
         # Still do RSS discovery
@@ -203,7 +203,7 @@ def run_full_enrichment(query_text: str) -> dict:
     }
 
     # 2. RSS/web sources
-    rss_sources = discover_query_sources(query_text)
+    rss_sources = discover_query_sources(query_text, pre_resolved_ticker)
     summary["rss_sources_discovered"] = len(rss_sources)
 
     # 3. Dispatch to all structured providers
@@ -325,9 +325,9 @@ def _fmp_enrich_snapshot(snapshot: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def fetch_financial_snapshot(query_text: str) -> dict:
+def fetch_financial_snapshot(query_text: str, pre_resolved_ticker: str | None = None) -> dict:
     """Fetch real-time financial data using yfinance (reliable) with httpx fallback."""
-    symbol = resolve_yahoo_symbol(query_text)
+    symbol = pre_resolved_ticker or resolve_yahoo_symbol(query_text)
     empty = {
         "symbol": None, "price": None, "currency": None, "market_cap": None,
         "fifty_two_week_range": None, "trailing_pe": None, "revenue_growth": None,
